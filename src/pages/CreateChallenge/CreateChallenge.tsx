@@ -66,8 +66,10 @@ import {
   startHabitWithToken,
   approveToken,
   transferTokensToStartHabit,
+  getUserHabits,
 } from "../../utils/api/web3.js";
 import { useAppKitProvider } from "@reown/appkit/react";
+import { handleJSONFileUpload } from "../../utils/api/upload.js";
 
 // console.log(walletProvider, "WALLET PROVIDER");
 const CreateChallenge = () => {
@@ -187,13 +189,37 @@ const CreateChallenge = () => {
   };
   const navigate = useNavigate();
 
+  const getFileNameAndJsonData = async () => {
+    const jsonData = {
+      name: challenge.ChallengeName,
+      description: challenge.ChallengeDescription,
+    };
+
+    const lastChallengeNumber = await getUserHabits(
+      userDetails?.User?.WalletAddress,
+      new BrowserProvider(walletProvider)
+    );
+
+    const fileName =
+      userDetails?.User?.WalletAddress.toString() +
+      "-" +
+      (lastChallengeNumber.length + 1).toString();
+
+    console.log("fileName: " + fileName);
+
+    return { fileName, jsonData };
+  };
+
   const handleApprove = async () => {
     setIsApproving(true);
+
     try {
       await approveToken(
         wagerAmount.toString(),
         new BrowserProvider(walletProvider)
       );
+
+      // console.log("S3 url :", jsonS3URL);
       setIsApproved(true);
       alert("Tokens approved successfully!");
     } catch (error) {
@@ -206,12 +232,15 @@ const CreateChallenge = () => {
   const handleTransfer = async () => {
     setIsTransferring(true);
     try {
+      const { fileName, jsonData } = await getFileNameAndJsonData();
       await transferTokensToStartHabit(
         duration,
         categoryValueParser(),
         wagerAmount.toString(),
         new BrowserProvider(walletProvider)
       );
+
+      const jsonS3URL = await handleJSONFileUpload(fileName, jsonData);
       alert("Tokens transferred successfully, habit started!");
       navigate("/explore");
     } catch (error) {
@@ -609,6 +638,85 @@ const CreateChallenge = () => {
             /> */}
 
             {/* break 3 */}
+            <div className="w-full">
+              {/* Label Section */}
+              <div
+                className={`div-[#252A31] div-[12px] font-[500]  mb-2 text-left`}
+              >
+                Name
+              </div>
+
+              {/* Input Field Section */}
+              <div
+                className={`flex w-full flex-row items-center text-left border-[1px] ${
+                  errors[0] ? "border-red-500" : "border-[#C9DE88B2]"
+                } rounded-[4px] px-2 h-12 gap-[20px] relative`}
+              >
+                <div className="flex text-left items-center w-full">
+                  <input
+                    placeholder="name"
+                    className="max-w-20 w-14 outline-none"
+                    type="text"
+                    value={challenge.ChallengeName}
+                    onChange={(e) =>
+                      setChallenge((prevState) => ({
+                        ...prevState,
+                        ChallengeName: e.target.value,
+                      }))
+                    }
+                    required
+                    onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                  />
+                </div>
+              </div>
+
+              {/* Error Message */}
+              {/* {errors && (
+                <div className="text-red-500 text-sm mt-1 text-left">
+                  {errors}
+                </div>
+              )} */}
+            </div>
+            <div className="w-full">
+              {/* Label Section */}
+              <div
+                className={`div-[#252A31] div-[12px] font-[500] mt-2 mb-2 text-left`}
+              >
+                Description
+              </div>
+
+              {/* Input Field Section */}
+              <div
+                className={`flex w-full flex-row items-center text-left border-[1px] ${
+                  errors[0] ? "border-red-500" : "border-[#C9DE88B2]"
+                } rounded-[4px] px-2 h-12 gap-[20px] relative`}
+              >
+                <div className="flex text-left items-center w-full">
+                  <input
+                    placeholder="desc.."
+                    className="max-w-20 w-14 outline-none"
+                    type="text"
+                    value={challenge.ChallengeDescription}
+                    onChange={(e) =>
+                      setChallenge((prevState) => ({
+                        ...prevState,
+                        ChallengeDescription: e.target.value,
+                      }))
+                    }
+                    required
+                    onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                  />
+                </div>
+              </div>
+
+              {/* Error Message */}
+              {/* {errors && (
+                <div className="text-red-500 text-sm mt-1 text-left">
+                  {errors}
+                </div>
+              )} */}
+            </div>
+            <div className="h-[4px] w-full my-4 bg-[#F3F3F3]"></div>
             <ChallengeTypeAndDate
               challenge={challenge}
               handleRequest={handleRequest}
