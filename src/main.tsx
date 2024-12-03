@@ -19,7 +19,7 @@ import { createAppKit } from "@reown/appkit/react";
 import { EthersAdapter } from "@reown/appkit-adapter-ethers";
 import { defineChain } from "@reown/appkit/networks";
 
-const projectId = "ac00a2750a375703a709b053456a837d";
+const projectId = "f8ef7b36361ad53b3548178af0e84d0d";
 
 // Define Moonbeam Network
 const moonbeamNetwork = {
