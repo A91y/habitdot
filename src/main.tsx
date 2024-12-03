@@ -17,6 +17,7 @@ import ChallengeDetails from "./pages/Explore/ChallengeDetails.tsx";
 import AboutChallenge from "./pages/About/AboutChallenge.tsx";
 import { createAppKit } from "@reown/appkit/react";
 import { EthersAdapter } from "@reown/appkit-adapter-ethers";
+import { defineChain } from "@reown/appkit/networks";
 
 const projectId = "ac00a2750a375703a709b053456a837d";
 
@@ -37,8 +38,29 @@ const moonbeamNetwork = {
     decimals: 18,
   },
 };
-
-const networks = [moonbeamNetwork]; // Only Moonbeam is included here
+const customNetwork = defineChain({
+  id: 1284,
+  caipNetworkId: 'eip155:1284',
+  chainNamespace: 'eip155',
+  name: 'Moonbeam',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Glimmer',
+    symbol: 'GLMR',
+  },
+  rpcUrls: {
+    default: {
+      http: ["https://rpc.api.moonbeam.network"],
+    },
+  },
+  blockExplorers: {
+    default: { name: 'Moonbeam Explorer', url: 'https://moonbeam.moonscan.io' },
+  },
+  contracts: {
+    // Add the contracts here
+  }
+})
+const networks = [customNetwork]; // Only Moonbeam is included here
 
 const metadata = {
   name: "HabitDot",
@@ -51,6 +73,7 @@ const metadata = {
 createAppKit({
   adapters: [new EthersAdapter()],
   networks,
+  defaultNetwork: moonbeamNetwork.id,
   metadata,
   projectId,
   features: {
