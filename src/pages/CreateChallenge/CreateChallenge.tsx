@@ -643,7 +643,7 @@ const CreateChallenge = () => {
               <div
                 className={`div-[#252A31] div-[12px] font-[500]  mb-2 text-left`}
               >
-                Name
+                Challenge Name
               </div>
 
               {/* Input Field Section */}
@@ -654,7 +654,7 @@ const CreateChallenge = () => {
               >
                 <div className="flex text-left items-center w-full">
                   <input
-                    placeholder="name"
+                    placeholder="Name.."
                     className="max-w-20 w-14 outline-none"
                     type="text"
                     value={challenge.ChallengeName}
@@ -682,7 +682,7 @@ const CreateChallenge = () => {
               <div
                 className={`div-[#252A31] div-[12px] font-[500] mt-2 mb-2 text-left`}
               >
-                Description
+                Challenge Description
               </div>
 
               {/* Input Field Section */}
@@ -693,7 +693,7 @@ const CreateChallenge = () => {
               >
                 <div className="flex text-left items-center w-full">
                   <input
-                    placeholder="desc.."
+                    placeholder="Desc.."
                     className="max-w-20 w-14 outline-none"
                     type="text"
                     value={challenge.ChallengeDescription}
