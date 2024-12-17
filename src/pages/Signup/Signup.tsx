@@ -86,7 +86,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="bg-[#FFE668] w-full h-full  flex flex-col justify-center items-center">
+    <div className="bg-[#FFE668] w-full h-full relative  flex flex-col justify-center items-center">
       <div className="flex flex-col items-center justify-center ">
         <img src={bear} alt="Bear lifting weights" className=" h-full mb-4" />
         <h1 className="text-3xl font-bold">HABIT.DOT</h1>
@@ -94,13 +94,14 @@ const Signup = () => {
           Turning Habits into real life Challenges
         </p>
       </div>
-      <div className="flex flex-col justify-end items-end mt-24">
+      <div className="flex flex-col justify-end  mt-40">
         <button
           onClick={handleGetStarted}
           className="bg-black text-white  text-md  py-4 px-20 rounded-full shadow-md"
         >
           Let's Get Started
         </button>
+<p className="mt-4 text-sm text-center font-semibold text-gray-600">        Powered by Polkadot & Moonbeam</p>
         {errorMessage && (
           <div className="text-center px-10 my-4 text-red-500">
             {errorMessage}
