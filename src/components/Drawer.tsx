@@ -91,11 +91,12 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, noti }) => {
 
             {/* New Button: Bridge DOT to xcDOT */}
             <button
-              onClick={() => navigate("/bridge-dot")}
-              className="bg-[#EEEEEE] text-sm text-[#2B303B] rounded-lg p-3 font-medium mt-4 hover:bg-[#E0E0E0] transition"
-            >
-              Bridge DOT to xcDOT
-            </button>
+  onClick={() => window.location.href = "https://apps.moonbeam.network/moonbeam/xcm?asset=dot"}
+  className="bg-[#EEEEEE] text-sm text-[#2B303B] rounded-lg p-3 font-medium mt-4 hover:bg-[#E0E0E0] transition"
+>
+  Bridge DOT to xcDOT
+</button>
+
           </div>
 
           <div className="p-5 absolute bottom-0 w-full">
