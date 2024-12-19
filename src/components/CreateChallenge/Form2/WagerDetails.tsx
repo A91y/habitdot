@@ -110,6 +110,7 @@ const WagerDetails = ({
         )}
       </div>
 
+  
       <div
         className={`div-[#252A31] div-[16px] font-[500]  ${styles.cardHeading} mt-4`}
       >
@@ -147,6 +148,18 @@ const WagerDetails = ({
           </div>
         </div>
       </div>
+          {/* Bridge Button */}
+          <div className="mt-4 w-full -mb-4">
+        <a
+          href="https://apps.moonbeam.network/moonbeam/xcm?asset=dot"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-black border border-black font-medium py-2.5 px-12 rounded inline-block text-center w-full"
+        >
+          Bridge from DOT to XDOT
+        </a>
+      </div>
+
     </>
   );
 };
